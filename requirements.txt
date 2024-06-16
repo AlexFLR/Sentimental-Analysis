@@ -1,0 +1,6 @@
+pandas 
+streamlit 
+vaderSentiment.vaderSentiment 
+afinn 
+matplotlib.pyplot 
+wordcloud
