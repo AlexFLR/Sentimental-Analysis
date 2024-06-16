@@ -1,6 +1,6 @@
-pandas 
-streamlit 
-vaderSentiment.vaderSentiment 
-afinn 
-matplotlib.pyplot 
+pandas
+streamlit
+vaderSentiment
+afinn
+matplotlib
 wordcloud
