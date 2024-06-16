@@ -4,3 +4,4 @@ vaderSentiment
 afinn
 matplotlib
 wordcloud
+seaborn
