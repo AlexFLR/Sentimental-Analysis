@@ -69,12 +69,12 @@ with st.expander("Let's analyze the text:"):
 
 
 
-# Function to calculate sentiment scores
+
 def sentiment_scores(sentence):
     sentiment_dict = analyzer.polarity_scores(sentence)
     return sentiment_dict
 
-# Function to determine overall sentiment
+
 def overall_sentiment(compound):
     if compound >= 0.05:
         return 'Positive'
@@ -83,7 +83,7 @@ def overall_sentiment(compound):
     else:
         return 'Neutral'
 
-# Function to generate word cloud
+
 def generate_wordcloud(text):
     wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
     fig, ax = plt.subplots(figsize=(10, 5))
@@ -91,14 +91,14 @@ def generate_wordcloud(text):
     ax.axis('off')
     st.pyplot(fig)
 
-# Streamlit app
+
 def main():
     st.title('Sentiment Analysis and Visualizations of Comments')
     st.subheader("Note:", divider='rainbow')
     st.write("Asigurați-vă că fișierul este în format CSV și conține un cap de tabel.Coloana cu textul de analizat trebuie să fie denumită 'comment'.")
     st.write(" Make sure the file is in CSV format and contains a table header. The column with the text to be analysed must be named 'comment'.")
     
-    # File uploader for CSV file
+  
     st.subheader("Add a CSV File to Analyze:")
     file_upload = st.file_uploader("Upload a CSV File")
     
@@ -116,14 +116,14 @@ def main():
             
             df = df.drop(columns=['sentiment_dict'])
             
-            # Determine overall sentiment
+         
             df['sentiment'] = df['compound'].apply(overall_sentiment)
             
-            # Display the processed DataFrame
+            
             st.subheader('Processed Data')
             st.dataframe(df)
             
-            # Download link for the processed CSV
+           
             csv = df.to_csv(index=False, sep=';')
             st.download_button(
                 label="Download CSV",
@@ -132,25 +132,25 @@ def main():
                 mime='text/csv'
             )
             
-            # Visualizations section
+            
             st.subheader('Visualizations')
-            # Sentiment score distribution
+    
             st.subheader('Sentiment Score Distribution')
             fig, ax = plt.subplots(figsize=(8, 6))
             sns.histplot(df['compound'], bins=20, kde=True, ax=ax)
             st.pyplot(fig)
             sentiment_counts = df['sentiment'].value_counts()
             
-             # Sentiment distribution pie chart
+           
             st.subheader('Sentiment Pie Chart')
             
             st.write(sentiment_counts)
             fig, ax = plt.subplots(figsize=(6, 6))
             ax.pie(sentiment_counts, labels=sentiment_counts.index, autopct='%1.1f%%', startangle=90)
-            ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+            ax.axis('equal')  
             st.pyplot(fig)
 
-            # Word cloud visualization
+         
             st.subheader('Word Cloud')
             all_text = ' '.join(df['comment'].tolist())
             generate_wordcloud(all_text)
